@@ -1,0 +1,22 @@
+[project]
+name = "synthetmic-cli"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Rasheed19", email = "ibraheem.abdulrasheed@gmail.com" }
+]
+requires-python = ">=3.12.3"
+dependencies = [
+    "click>=8.2.1",
+    "pandas>=2.3.1",
+    "pyfiglet>=1.0.3",
+    "synthetmic>=0.1.1",
+]
+
+[project.scripts]
+sm = "synthetmic_cli.cli:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
