@@ -99,7 +99,6 @@ The following instructions use uv for set up.
     ```
     uv sync --all-extras
     ```
-    ```
 
 ### Authors and maintainers
 - [R. O. Ibraheem](https://github.com/Rasheed19)
