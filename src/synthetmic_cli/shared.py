@@ -1,4 +1,5 @@
 import io
+import json
 import tempfile
 import zipfile
 from dataclasses import dataclass
@@ -11,8 +12,8 @@ import pandas as pd
 import pyvista as pv
 from synthetmic import LaguerreDiagramGenerator
 
-coordinates = ("x", "y", "z")
-target_volumes_colname = "target_volumes"
+COORDINATES = ("x", "y", "z")
+TARGET_VOLUMES_COLNAME = "target_volumes"
 
 
 @dataclass(frozen=True)
@@ -21,7 +22,7 @@ class Diagram:
     max_percentage_error: float
     mean_percentage_error: float
     centroids: np.ndarray
-    vertices: np.ndarray
+    vertices: dict[int, list]
     fitted_volumes: np.ndarray
     target_volumes: np.ndarray
     weights: np.ndarray
@@ -374,9 +375,12 @@ def extract_property_as_df(diagram: Diagram) -> dict[str, pd.DataFrame]:
             "seeds_initial",
             "seeds_final",
             "centroids",
-            "vertices",
         ),
-        (diagram.seeds, diagram.positions, diagram.centroids, diagram.vertices),
+        (
+            diagram.seeds,
+            diagram.positions,
+            diagram.centroids,
+        ),
     ):
         property_dict[p] = pd.DataFrame(data=d[:, :dim], columns=COORDINATES[:dim])
 
@@ -414,6 +418,17 @@ def save_results_as_zip(
             for ext in PropertyExtension:
                 zipf.writestr(f"{fname}.{ext}", buffer.getvalue())
 
+            buffer.close()
+
+        # write the vertices to json
+        buffer = io.StringIO()
+        json.dump(
+            diagram.vertices,
+            buffer,
+            indent=4,
+        )
+        buffer.seek(0)
+        zipf.writestr("vertices.json", buffer.getvalue())
         buffer.close()
 
         for ext in FigureExtension:

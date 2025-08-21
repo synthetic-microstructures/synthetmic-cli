@@ -1,18 +1,38 @@
 [project]
 name = "synthetmic-cli"
-version = "0.1.0"
-description = "Add your description here"
+description = "A CLI for generating synthetic Laguerre polycrystalline microstructures"
 readme = "README.md"
 authors = [
-    { name = "Rasheed19", email = "ibraheem.abdulrasheed@gmail.com" }
+    { name = "R. O. Ibraheem", email = "ibraheem.abdulrasheed@gmail.com" },
+    { name = "D. P. Bourne", email = "D.Bourne@hw.ac.uk" },
+    { name = "S. M. Roper", email = "Steven.Roper@glasgow.ac.uk" },
 ]
-requires-python = ">=3.12.3"
+maintainers = [
+    { name = "R. O. Ibraheem", email = "ibraheem.abdulrasheed@gmail.com" },
+    { name = "D. P. Bourne", email = "D.Bourne@hw.ac.uk" },
+    { name = "S. M. Roper", email = "Steven.Roper@glasgow.ac.uk" }
+]
+requires-python = ">=3.11"
 dependencies = [
     "click>=8.2.1",
     "pandas>=2.3.1",
     "pyfiglet>=1.0.3",
-    "synthetmic>=0.1.1",
 ]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+]
+
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+homepage = "https://github.com/synthetic-microstructures/synthetmic-cli"
+issues = "https://github.com/synthetic-microstructures/synthetmic-cli/issues"
 
 [project.scripts]
 sm = "synthetmic_cli.cli:cli"
@@ -20,3 +40,10 @@ sm = "synthetmic_cli.cli:cli"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+  "/tests",
+  "/assets",
+]
