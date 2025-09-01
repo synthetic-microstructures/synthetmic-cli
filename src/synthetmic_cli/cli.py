@@ -36,6 +36,7 @@ The repository for this object can be found at:
 Authors: Rasheed Ibraheem, David Bourne, and Steven Roper.
 """
 )
+@click.version_option(package_name="synthetmic-cli", message="%(package)s v%(version)s")
 def cli() -> None:
     pass
 
